@@ -1,0 +1,76 @@
+# .bash_profile
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
+
+# Lock and Load a custom theme file
+# location /.bash_it/themes/
+export BASH_IT_THEME='bobby'
+
+# Don't check mail when opening terminal.
+unset MAILCHECK
+
+
+# Load Bash It
+source $BASH_IT/bash_it.sh
+export GOPATH=/home/ilackarms/go
+export GOBIN=$GOPATH/bin
+export PATH=/usr/local/go/bin/:$PATH:$GOBIN
+
+export PATH=~/.npm-global/bin:$PATH
+export PATH="$HOME/.rbenv/bin:$PATH"
+
+
+# Load rbenv automatically by appending
+eval "$(rbenv init -)"
+
+# Set Git Credentials Helper
+git config --global credential.helper 'cache --timeout 7200000'
+
+
+# useful aliases
+echo "setting aliases: be, pbcopy, pbpaste"
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
+
+echo "setting alias for kubectl"
+alias k=kubectl
+
+echo "Setting docker alias docker-clean-none-images"
+alias docker-clean-none-images="docker rmi \$(docker images | grep none | awk '{print \$3}')"
+
+
+echo "setting alias for docker run -ti --rm --entrypoint /bin/bash"
+alias docker-debug-image="docker run -ti --rm --entrypoint /bin/bash"
+
+echo "setting alias bit"
+alias bit="source ~/.bashrc"
+
+echo gloo completion
+source <(glooctl completion bash | sed s/glooctl/g/)
+alias g=glooctl
+
+echo "kubectl completion"
+source <(k completion bash | sed -e 's/kubectl/k/g')
+source <(k completion bash | sed -e 's/kubectl/k/g')
+
+echo "setting alias cdsolo"
+alias cdsolo="cd ${GOPATH}/src/github.com/solo-io/"
+
+export KOPS_STATE_STORE=s3://devclusterstate423modso3f501
+
+alias goland='~/Desktop/Apps/GoLand-2018.2.3/bin/goland.sh'
+
+export GITHUB_TOKEN=$(cat ~/workspace/credentials/ghtoken)
+
+export GOOGLE_PROTOS_HOME=${HOME}/workspace/googleapis
+
+echo "some things to remember:"
+echo "mess with brightness: xrandr --output eDP-1-1 --brightness 1.x"
+
+echo "setting alias mkns - minikube namespace"
+alias mkns="k config set-context minikube --namespace"
+
+export PATH=$PATH:$HOME/.linkerd2/bin
+
