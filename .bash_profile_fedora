@@ -69,8 +69,14 @@ export GOOGLE_PROTOS_HOME=${HOME}/workspace/googleapis
 echo "some things to remember:"
 echo "mess with brightness: xrandr --output eDP-1-1 --brightness 1.x"
 
-echo "setting alias mkns - minikube namespace"
-alias mkns="k config set-context minikube --namespace"
-
+echo "setting alias kns - minikube namespace"
+alias 'kns'="k config set-context $(k config current-context)  --namespace"
 export PATH=$PATH:$HOME/.linkerd2/bin
+export PATH=$GOPATH/src/github.com/solo-io/supergloo/hack:$PATH
 
+
+export PATH="$HOME/.cargo/bin:$PATH"
+
+source $HOME/.cargo/env
+
+export RUN_KUBE_TESTS=1
