@@ -47,8 +47,8 @@ alias docker-debug-image="docker run -ti --rm --entrypoint /bin/bash"
 echo "setting alias bit"
 alias bit="source ~/.bashrc"
 
-echo gloo completion
-source <(glooctl completion bash | sed s/glooctl/g/)
+#echo gloo completion
+#source <(glooctl completion bash | sed s/glooctl/g/)
 alias g=glooctl
 
 echo "kubectl completion"
@@ -69,8 +69,8 @@ export GOOGLE_PROTOS_HOME=${HOME}/workspace/googleapis
 echo "some things to remember:"
 echo "mess with brightness: xrandr --output eDP-1-1 --brightness 1.x"
 
-echo "setting alias kns - minikube namespace"
-alias 'kns'="k config set-context $(k config current-context)  --namespace"
+echo "setting alias kns - kube namespace"
+alias kns='k config set-context $(k config current-context)  --namespace'
 export PATH=$PATH:$HOME/.linkerd2/bin
 export PATH=$GOPATH/src/github.com/solo-io/supergloo/hack:$PATH
 
@@ -80,3 +80,14 @@ export PATH="$HOME/.cargo/bin:$PATH"
 source $HOME/.cargo/env
 
 export RUN_KUBE_TESTS=1
+
+alias mg='make -B generated-code'
+alias de='dep ensure -v'
+alias savedir='echo cd $(echo $PWD) | pbcopy'
+
+#export KUBECONFIG="$(kind get kubeconfig-path --name="test")"
+#kubectl cluster-info
+
+alias fmt='gofmt -w pkg/ projects/ test/ && goimports -w pkg/ projects/ test/'
+
+alias gist='for i in $(git status | grep \'modified: \\|new file:\' | awk \'{print $3}\'); do gofmt -w $i && goimports -w $i; done'
