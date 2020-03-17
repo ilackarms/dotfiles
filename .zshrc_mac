@@ -1,7 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export GOPATH=$HOME/go
 export PATH=/usr/local/opt/gnu-sed/libexec/gnubin:$HOME/bin:$GOPATH/bin:/usr/local/bin:$PATH:/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
-export BUILD_ID=ilackarms
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/ilackarms/.oh-my-zsh"
 
@@ -17,8 +16,13 @@ prompt_zsh_kube_context(){
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(kubecontext newline dir vcs newline )
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status go_version root_indicator background_jobs history time)
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(kubecontext newline vcs status time newline dir)
+
+POWERLEVEL9K_DISABLE_RPROMPT=true
+
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(newline)
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status go_version root_indicator background_jobs history time)
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -138,19 +142,12 @@ alias kns='k config set-context $(k config current-context)  --namespace'
 
 export RUN_KUBE_TESTS=1
 alias mg='make -B generated-code'
-alias de='dep ensure -v'
 
 alias fmt='gofmt -w $(ls -d -- */ | grep -v vendor) && goimports -w $(ls -d -- */ | grep -v vendor)'
 
-
-export BUILD_ID=ilackarms
-export E2E_RUN_PODS_LOCALLY=1
-export POD_NAMESPACE=supergloo-system
-export SIDECAR_INJECTOR_IMAGE_NAME=docker.io/soloio/sidecar-injector:ilackarms
-export SIDECAR_INJECTOR_IMAGE_PULL_POLICY=Always
+export POD_NAMESPACE=gloo-system
 
 eval "$(rbenv init -)"
-
 
 #fzf and fd
 # Use ~~ as the trigger sequence instead of the default **
@@ -176,3 +173,8 @@ alias dockerssh='docker run -ti --privileged --pid=host --rm --entrypoint bash g
 
 alias gh="open `git remote -v | grep fetch | awk '{print $2}' | sed 's/git@/http:\/\//' | sed 's/com:/com\//'`| head -n1"
 
+export GITHUB_TOKEN=$(cat  ~/workspace/credentials/gh_token)
+
+source $HOME/.cargo/env
+
+source /Users/ilackarms/Library/Preferences/org.dystroy.broot/launcher/bash/br
